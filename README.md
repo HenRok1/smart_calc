@@ -7,5 +7,4 @@
 Installation: \
 cd src \
 make all \
-make install \
-make open 
+make build
