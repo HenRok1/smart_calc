@@ -1,29 +1,28 @@
 CC = gcc
 CFLAGS:= -Wall -Werror -Wextra -g
 GCOV_FLAGS := -fprofile-arcs -ftest-coverage
-LIN_FLAGS := -lpthread -pthread -lrt -lm -lsubunit
 LDFLAGS := -fprofile-arcs --coverage
+LIN_FLAGS := -lpthread -pthread -lrt -lm -lsubunit
 LCHECK= -I/opt/homebrew/include  -L/opt/homebrew/lib -lcheck
 ifeq ($(shell uname), Linux)
 CHECK_FLAGS += $(LIN_FLAGS)
 endif
-PROJECT_NAME = Calc
+PROJECT_NAME= SmartCalc
 PROJECT_FILE := $(addsuffix .pro,$(PROJECT_NAME))
-SOURCES:= parse.c stack.c
+SOURCES:= s21_SmartCalc.c 
 OBJECTS := $(addprefix obj/,$(SOURCES:.c=.o))
 OBJECTS_GCOV := $(addprefix obj_gcov/,$(SOURCES:.c=.o))
-HEADER:= parse.h stack.h
+HEADER:= s21_SmartCalc.h s21_bonusPart.h
 OBJ_DIR     := obj
 OBJ_GCOV_DIR:= obj_gcov
-CHECKMK_FILE:= test.check
+CHECKMK_FILE:= s21_calc_test.check
 TEST_EXE		:=test_test.out
 LIB_NAME		=s21_calc.a
 TEST_FILE		=test_calc.c
 
-
 .PHONY: all clean rebuild style
 
-all: clean $(LIB_NAME) gcov_report
+all: clean $(LIB_NAME)
 
 build: install open
 

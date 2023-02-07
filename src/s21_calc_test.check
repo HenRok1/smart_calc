@@ -1,0 +1,113 @@
+#include "s21_SmartCalc.h"
+
+#test test1
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+ck_assert_int_eq(parser("3+(-3)", &stack, &x), 0);
+ck_assert_int_eq(polish_notation(&stack, &resultat), 0);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, 0);
+remove_all_elements(&resultat);
+
+#test test2
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("3+4*2/(1-5)^2", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, 3.5);
+remove_all_elements(&resultat);
+
+#test test3
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("ln(-4+5)+5", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, log10(-4 + 5) + 5);
+remove_all_elements(&resultat);
+
+#test test4
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("sin(5+1*(-4))", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, sin(5 + 1 * (-4)));
+remove_all_elements(&resultat);
+
+#test test5
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("sin(5+1*(-4))+atan(-1/7.25^(-3))", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, sin(5 + 1 * (-4)) + atan(-1 / pow(7.25, -3)));
+remove_all_elements(&resultat);
+
+#test test6
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("sin(5+1*(-4))+4*(-1/(7.25^(-3)))", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, sin(5 + 1 * (-4)) + 4 * (-1 / pow(7.25, -3)));
+remove_all_elements(&resultat);
+
+#test test7
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("sin(2)*cos(5)+tan(67^2)/sin(128)-atan(sqrt(9))-(4mod2)*log(5)", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, sin(2) * cos(5) + tan(67 * 67) / sin(128) -
+atan(sqrt(9)) - 0 * log(5));
+remove_all_elements(&resultat);
+
+#test test8
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("asin(0.6)", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, asin(0.6));
+remove_all_elements(&resultat);
+
+#test test9
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("acos(0.6)", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, acos(0.6));
+remove_all_elements(&resultat);
+
+#test test10
+element *stack = NULL;
+element *resultat = NULL;
+int x = 0;
+parser("acos(0)-sin(30)*tan(67)/sin(128)-atan(sqrt(9))-(4mod2)*log(5)+(54-7)", &stack, &x);
+polish_notation(&stack, &resultat);
+double result = 0;
+ck_assert_int_eq(calculation(&resultat, &result, 0), 0);
+ck_assert_double_eq(result, acos(0) - sin(30) * tan(67) / sin(128) - atan(sqrt(9)) - 0 * log(5) + (54 - 7));
+remove_all_elements(&resultat);
+
