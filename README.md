@@ -4,8 +4,8 @@
 Есть покрытие unit тестами при помощи библиотеки check. \
 Весь код выполнен в соотвествии Google Style. \
 
-Installation: \ 
-cd src
-make
-make install
-make open
+Installation: \
+cd src \ 
+make all \ 
+make install \ 
+make open \
