@@ -5,7 +5,7 @@
 Весь код выполнен в соотвествии Google Style. \
 
 Installation: \
-cd src \ 
-make all \ 
-make install \ 
+cd src \
+make all \
+make install \
 make open \
